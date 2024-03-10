@@ -1,0 +1,76 @@
+@startuml ec
+ skinparam linetype ortho
+ hide circle
+
+entity "channels (チャンネル)" as channels {
+  * <<PK>> id : int : チャンネルID
+  --
+  * <<U>> name : varchar(100)    : チャンネル名
+}
+
+entity "programs (番組)" as programs {
+  * <<PK>> id : int : 番組ID
+  --
+  * title : varchar(100)    : 番組タイトル
+  * details : varchar(1000)    : 番組詳細
+}
+
+entity "schedules (番組枠)" as schedules {
+  * <<PK>> id : int : 番組枠ID
+  --
+  * <<FK>> channel_id : int   : チャンネルID
+  * <<FK>> program_id : int   : 番組ID
+  * start_air_time : time : 放送開始時間
+  * end_air_time : time : 放送終了時間
+}
+
+entity "seasons (シーズン)" as seasons {
+  * <<PK>> id : int : シーズンID
+  --
+  * <<FK>> program_id : int : 番組ID
+    season_no : smallint    : シーズン数
+}
+
+
+entity "episodes (エピソード)" as episodes {
+  * <<PK>> id : int : エピソードID
+  --
+  * <<FK>> season_id : int : シーズンID
+    episode_no : smallint    : エピソード数
+  * title : varchar(100) : タイトル
+  * details : varchar(1000) : エピソード詳細
+  * duration : int : 動画時間
+  * public_at : datetime : 公開日
+}
+
+entity "viewers (視聴者情報)" as viewers {
+  * <<PK>> id : int : 視聴者情報ID
+  --
+  * <<FK>> schedule_id : int : 番組枠ID
+  * <<FK>> episode_id : int : エピソードID
+  * view_count : int : 視聴者数
+}
+
+entity "genres (ジャンル)" as genres {
+  * <<PK>> id : int : ジャンルID
+  --
+  * <<U>> name : varchar(32)    : ジャンル名
+}
+
+entity "programs_genres (番組ジャンル)" as programs_genres {
+  * <<PK>> id : int : 中間ID 
+  --
+  * <<FK>> program_id : int    : 番組ID
+  * <<FK>> genre_id : int    : ジャンルID
+}
+
+channels ||..|{ schedules
+programs ||..|{ schedules
+programs ||..|{ programs_genres
+genres ||..o{ programs_genres
+programs ||..o{ seasons
+seasons ||..|{ episodes
+schedules ||..|{ viewers
+episodes ||..|{ viewers
+
+@enduml
