@@ -39,7 +39,8 @@ INNER JOIN seasons AS Se
 ON Pr.id = Se.program_id
 INNER JOIN episodes AS Ep
 ON Se.id = Ep.season_id
-WHERE DATE(Ep.public_at) = CURRENT_DATE;
+WHERE DATE(Ep.public_at) = CURRENT_DATE
+ORDER BY Ch.id, Sc.start_air_time;
 
 
 -- ドラマのチャンネルに対して、放送開始時刻、放送終了時刻、シーズン数、エピソード数、
@@ -97,4 +98,5 @@ FROM (
   ON G.id = PG.genre_id
   GROUP BY G.id, P.id
 ) AS A
-GROUP BY genre_id;
+GROUP BY genre_id
+ORDER BY genre_id;
