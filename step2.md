@@ -21,7 +21,7 @@ cd internet-tv
 
 サンプルデータを読み込みます。
 ```
-mysql < step2.sql -u <ユーザー名> -p --default-character-set=utf8mb4
+mysql < internet-tv.sql -u <ユーザー名> -p --default-character-set=utf8mb4
 ```
 
 ## 注意事項
