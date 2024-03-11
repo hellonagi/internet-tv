@@ -40,7 +40,7 @@ entity "episodes (エピソード)" as episodes {
   * title : varchar(100) : タイトル
   * details : varchar(1000) : エピソード詳細
   * duration : int : 動画時間
-  * public_at : datetime : 公開日
+  * public_at : date : 公開日
 }
 
 entity "viewers (視聴者情報)" as viewers {
@@ -68,7 +68,7 @@ channels ||..|{ schedules
 programs ||..|{ schedules
 programs ||..|{ programs_genres
 genres ||..o{ programs_genres
-programs ||..o{ seasons
+programs ||..|{ seasons
 seasons ||..|{ episodes
 schedules ||..|{ viewers
 episodes ||..|{ viewers
