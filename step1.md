@@ -61,7 +61,7 @@
 |title|varchar(100)|||||
 |details|varchar(1000)|||||
 |duration|int|||||
-|public_at|datetime||||
+|public_at|date||||
 
 - 外部キー制約：season_id に対して、seasons テーブルの id カラムから設定
 
